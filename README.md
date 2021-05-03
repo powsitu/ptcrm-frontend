@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# Personal Trainer CRM
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## What is this app about?
 
-## Available Scripts
+[Check out the website here](https://www.jenniferovescoaching.com/)
 
-In the project directory, you can run:
+PT CRM is a platform where users can see the availability of their favorite personal trainer and book some time for an intake or join any classes the coach might be giving.
+It's also a place where the users can track their calories and macros so that the personal trainer can review them.
 
-### `npm start`
+## App demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`Image coming soon!`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+---
 
-### `npm test`
+## Used technologies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Frontend:
 
-### `npm run build`
+<a href="https://www.javascript.com/"><img src="https://img.icons8.com/color/48/000000/javascript.png" alt="JavaScript"></a>
+<a href="https://www.w3.org/html/"><img src="https://img.icons8.com/color/48/000000/html-5.png" alt="HTML 5"/></a>&nbsp;
+<a href="https://www.w3.org/TR/CSS/#css"><img src="https://img.icons8.com/color/48/000000/css3.png" alt="CSS 3"/></a>&nbsp;
+<a href="https://reactjs.org/"><img src="https://img.icons8.com/officel/40/000000/react.png" alt="React"/></a>&nbsp;
+<a href="https://redux.js.org/"><img src="https://img.icons8.com/color/48/000000/redux.png" alt="Redux"/></a>&nbsp;
+<a href="https://material-ui.com/"><img src="https://img.icons8.com/color/48/000000/material-ui.png" alt="Material UI"/></a>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<a href="https://nodejs.dev/"><img src="https://img.icons8.com/color/48/000000/nodejs.png" alt="node JS"/></a>
+<a href="https://expressjs.com/"><img src="https://i.ibb.co/QCxVyFH/express-3-1.png" alt="Express"/></a>&nbsp;
+<a href="https://jwt.io/"><img src="https://jwt.io/img/pic_logo.svg" width=48 height=48 alt="JWT"></a>&nbsp;
+<a href="https://www.postgresql.org/"><img src="https://img.icons8.com/color/48/000000/postgreesql.png" alt="PostgreSQL"/></a>&nbsp;
+<a href="https://graphql.org/"><img src="https://img.icons8.com/color/48/000000/graphql.png" alt="GraphQL"/></a>&nbsp;
+<a href="https://sequelize.org/"><img src="https://i.ibb.co/LQtSfMw/seq-1.png" alt="Sequelize ORM"/></a>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## User stories
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### As a user I can:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- sign up to make an account and login ( MVP)
+- see a calendar and click on a day to see what classes are available ( MVP)
+- make a reservation on a particular class available on a day ( MVP)
+- see a history of all reservations I have made ( MVP)
+- cancel a reservation I have made ( MVP)
+- provide feedback to a class I have attended
+- only book a class 2h before it starts ( MVP)
+- enter my daily calories intake and macros, daily feeling and comments for my coach to review ( check-ins)
+- see a notification in case my account was blocked ( MVP)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+---
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### As an admin I can:
 
-## Learn More
+- see a list of all my users and block/unblock them ( a blocked user cannot make reservations) ( MVP)
+- see a profile for a user with all their calories and macros check-ins
+- see a calendar and click on a day to see the users for each class of that day ( MVP)
+- add/modify/delete classes on a selected day ( MVP)
+- see the feedback provided to my classes
+- see all available places to train ( MVP)
+- add/modify/delete places ( MVP)
+- see all available trainings ( MVP)
+- add/modify/delete trainings ( MVP)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Project Board
 
-### Code Splitting
+Githubs project kanban board was used, [click here to check it out](https://github.com/users/powsitu/projects/1)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Wireframe
 
-### Analyzing the Bundle Size
+The initial wireframe done before starting to work on the project [can be found here](https://miro.com/app/board/o9J_lG8eGlU=/)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Database model
 
-### Making a Progressive Web App
+The database model can be found at [dbdiagram.io](https://dbdiagram.io/d/608fd0f4b29a09603d13202a)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Backend server repository
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The backend can be found [here](https://github.com/powsitu/ptcrm-backend)
