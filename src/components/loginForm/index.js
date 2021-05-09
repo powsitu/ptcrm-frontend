@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    backgroundColor: "white",
+    padding: "20px",
   },
   avatar: {
     margin: theme.spacing(1),
@@ -32,14 +34,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LogIn() {
+export default function LogIn(props) {
   const classes = useStyles();
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>{/* <LockOutlinedIcon /> */}</Avatar>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
@@ -54,6 +58,8 @@ export default function LogIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={props.email}
+            onChange={props.emailChange}
           />
           <TextField
             variant="outlined"
@@ -65,6 +71,8 @@ export default function LogIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={props.password}
+            onChange={props.passwordChange}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -76,6 +84,7 @@ export default function LogIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={props.clickSubmit}
           >
             Sign In
           </Button>
