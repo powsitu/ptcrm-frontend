@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LogIn(props) {
+export default function LogInForm(props) {
   const classes = useStyles();
 
   return (
