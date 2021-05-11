@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useMutation } from "@apollo/react-hooks";
 import LogInForm from "../components/loginForm";
 import { LOGIN } from "../store/user/gql_user";
 import { loginAction } from "../store/user/actions";
+import { selectToken } from "../store/user/selectors";
 
 export default function Login() {
   const history = useHistory();
@@ -12,6 +13,13 @@ export default function Login() {
   const [email, set_email] = useState("");
   const [password, set_password] = useState("");
   const [login] = useMutation(LOGIN);
+  const token = useSelector(selectToken);
+
+  useEffect(() => {
+    if (token !== null) {
+      history.push("/");
+    }
+  }, [token, history]);
 
   function submitForm(event) {
     console.log(`trying to login with ${email}`);

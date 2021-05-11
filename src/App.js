@@ -3,6 +3,7 @@ import "./App.css";
 import { Switch, Route } from "react-router-dom";
 
 import LogIn from "./pages/login";
+import homepage from "./pages/homepage";
 import NavigationBar from "./components/NavigationBar";
 
 function App() {
@@ -10,7 +11,8 @@ function App() {
     <div className="App">
       <NavigationBar />
       <Switch>
-        <Route exact path="/" component={LogIn} />
+        <Route path="/login" component={LogIn} />
+        <Route exact path="/" component={homepage} />
       </Switch>
     </div>
   );
