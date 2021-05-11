@@ -12,6 +12,13 @@ import "./reservations.css";
 export default function Reservations() {
   const currentUser = useSelector(selectUserId);
   const [reservations, set_reservations] = useState();
+  const [cancelReservation] = useMutation(CANCEL_RESERVATION);
+
+  async function clickCancelReservation(reservationId) {
+    const response = await cancelReservation({
+      variables: { reservationId: parseInt(reservationId) },
+    });
+  }
 
   const { error, loading, data } = useQuery(MY_RESERVATIONS, {
     variables: { userId: currentUser },
@@ -46,6 +53,7 @@ export default function Reservations() {
                   time={reservation.training.time}
                   city={reservation.training.place.city}
                   trainingType={reservation.training.trainingType.name}
+                  buttonAction={() => clickCancelReservation(reservation.id)}
                 />
               );
             })

@@ -26,7 +26,6 @@ export default function Homepage() {
   });
 
   async function clickJoinTraining(userId, trainingId) {
-    console.log(`The user ${userId} tried to join the training ${trainingId}`);
     const response = await joinTraining({
       variables: { userId: userId, trainingId: parseInt(trainingId) },
     });

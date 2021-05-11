@@ -22,7 +22,6 @@ export default function Login() {
   }, [token, history]);
 
   function submitForm(event) {
-    console.log(`trying to login with ${email}`);
     event.preventDefault();
     const user = login({ variables: { email, password } });
     dispatch(loginAction(user));
