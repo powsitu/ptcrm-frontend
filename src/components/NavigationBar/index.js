@@ -12,6 +12,8 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectToken } from "../../store/user/selectors";
+import LoggedIn from "./loggedin";
+import LoggedOut from "./loggedout";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +43,7 @@ const NavigationBar = (props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
 
-  const loginLogoutControls = token ? "Logout" : "Login";
+  const loginLogoutControls = token ? <LoggedIn /> : <LoggedOut />;
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -147,13 +149,7 @@ const NavigationBar = (props) => {
               >
                 Reservations
               </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={() => handleButtonClick("/")}
-              >
-                {loginLogoutControls}
-              </Button>
+              {loginLogoutControls}
             </div>
           )}
         </Toolbar>
