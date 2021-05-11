@@ -74,10 +74,6 @@ export default function LogInForm(props) {
             value={props.password}
             onChange={props.passwordChange}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             fullWidth
