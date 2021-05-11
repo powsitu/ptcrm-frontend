@@ -12,6 +12,7 @@ export default function Reservations() {
 
   const { error, loading, data } = useQuery(MY_RESERVATIONS, {
     variables: { userId: currentUser },
+    fetchPolicy: "network-only",
   });
 
   useEffect(() => {
