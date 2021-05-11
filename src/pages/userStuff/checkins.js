@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useQuery } from "@apollo/react-hooks";
+import { CHECKINS_FOR_USER } from "../../store/checkins/gql_checkins";
 
 export default function checkins() {
   return (
