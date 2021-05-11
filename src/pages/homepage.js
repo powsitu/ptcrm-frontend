@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useQuery } from "@apollo/react-hooks";
@@ -8,32 +9,27 @@ import "./homepage.css";
 
 export default function Homepage() {
   const [date, set_date] = useState(new Date());
+  const [trainings, set_trainings] = useState([]);
   const onDateChange = (date) => {
     set_date(date);
   };
 
   const { error, loading, data } = useQuery(TRAININGS_ON_DAY, {
-    variables: { date: date.toISOString().split("T")[0] },
+    variables: { date: moment(date).format("YYYY-MM-DD") },
   });
 
   useEffect(() => {
-    console.log(data);
+    if (data) {
+      set_trainings(data);
+    }
   }, [data]);
-
-  const OnDateClick = () => {
-    console.log("you clicked on a day", date.toISOString().split("T")[0]);
-  };
 
   return (
     <div className="home-container">
       <div>
-        <Calendar
-          value={date}
-          onChange={onDateChange}
-          onClickDay={OnDateClick}
-        />
+        <Calendar value={date} onChange={onDateChange} />
       </div>
-      <div className="trainings-container">
+      <div>
         <table>
           <thead>
             <tr>
@@ -44,8 +40,8 @@ export default function Homepage() {
             </tr>
           </thead>
           <tbody>
-            {!loading ? (
-              data.getTrainingThisDay.map((training) => {
+            {trainings.length !== 0 ? (
+              trainings.getTrainingThisDay.map((training) => {
                 return (
                   <TrainingTable
                     key={training.id}
@@ -56,7 +52,9 @@ export default function Homepage() {
                 );
               })
             ) : (
-              <td>Loading...</td>
+              <tr>
+                <td colSpan="4">Loading...</td>
+              </tr>
             )}
           </tbody>
         </table>
