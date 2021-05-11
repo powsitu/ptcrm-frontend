@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
-export default function homepage() {
+export default function Homepage() {
+  const [date, set_date] = useState(new Date());
+  const onDateChange = (date) => {
+    set_date(date);
+  };
+
+  const onDateClick = () => {
+    console.log("you clicked on a day", date.toISOString().split("T")[0]);
+  };
+
   return (
     <div>
-      This is gonna be the homepage for the users and admin after the login
+      <Calendar value={date} onChange={onDateChange} onClickDay={onDateClick} />
     </div>
   );
 }
