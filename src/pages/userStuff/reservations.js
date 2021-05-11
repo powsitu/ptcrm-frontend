@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectUserId } from "../../store/user/selectors";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { MY_RESERVATIONS } from "../../store/trainings/gql_trainings";
+import {
+  MY_RESERVATIONS,
+  CANCEL_RESERVATION,
+} from "../../store/reservations/gql_reservations";
 import ReservationsTable from "../../components/Tables/reservations";
 import "./reservations.css";
 

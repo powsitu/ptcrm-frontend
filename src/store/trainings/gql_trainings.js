@@ -22,21 +22,3 @@ export const JOIN_TRAINING = gql`
     }
   }
 `;
-
-export const MY_RESERVATIONS = gql`
-  query myReservations($userId: ID!) {
-    getAllReservationsForUser(id: $userId) {
-      id
-      training {
-        date
-        time
-        place {
-          city
-        }
-        trainingType {
-          name
-        }
-      }
-    }
-  }
-`;
