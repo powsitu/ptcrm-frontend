@@ -14,3 +14,11 @@ export const TRAININGS_ON_DAY = gql`
     }
   }
 `;
+
+export const JOIN_TRAINING = gql`
+  mutation joinThisTraining($userId: ID!, $trainingId: Int!) {
+    makeReservation(userId: $userId, trainingId: $trainingId) {
+      id
+    }
+  }
+`;
