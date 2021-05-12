@@ -1,0 +1,43 @@
+import React from "react";
+
+export default function AttendeesTable({ data }) {
+  console.log("received the data in the component", data);
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Training</th>
+          <th>City</th>
+          <th>Name</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.getTrainingThisDay.map((training) => {
+          return (
+            <>
+              <tr key={training.id}>
+                <td rowSpan={training.users.length + 1}>{training.time}</td>
+                <td rowSpan={training.users.length + 1}>
+                  {training.trainingType.name}
+                </td>
+                <td rowSpan={training.users.length + 1}>
+                  {training.place.city}
+                </td>
+              </tr>
+              {training.users.map((attendee) => {
+                return (
+                  <tr>
+                    <td>{attendee.firstName}</td>
+                    <td>{attendee.email}</td>
+                  </tr>
+                );
+              })}
+            </>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+}
