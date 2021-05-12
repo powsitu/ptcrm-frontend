@@ -37,7 +37,7 @@ export default function ManageTrainings() {
         ) : null}
       </div>
       <div>
-        <AddTraining />
+        <AddTraining date={moment(date).format("YYYY-MM-DD")} />
       </div>
     </div>
   );
