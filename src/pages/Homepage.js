@@ -21,7 +21,7 @@ export default function Homepage() {
     set_date(date);
   };
 
-  const { error, loading, data } = useQuery(TRAININGS_ON_DAY, {
+  const { data } = useQuery(TRAININGS_ON_DAY, {
     variables: { date: moment(date).format("YYYY-MM-DD") },
   });
 

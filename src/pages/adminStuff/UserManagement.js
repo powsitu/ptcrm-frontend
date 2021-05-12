@@ -7,7 +7,7 @@ export default function UserManagement() {
   const [users, set_users] = useState();
   const [switchUserBlock] = useMutation(SWITCH_USER_BLOCK);
 
-  const { error, loading, data } = useQuery(ALL_USERS, {
+  const { data } = useQuery(ALL_USERS, {
     fetchPolicy: "network-only",
   });
 
