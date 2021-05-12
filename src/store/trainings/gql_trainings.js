@@ -26,3 +26,19 @@ export const JOIN_TRAINING = gql`
     }
   }
 `;
+
+export const ALL_TRAININGS = gql`
+  query allTrainings {
+    getAllTrainings {
+      date
+      time
+      place {
+        city
+      }
+      users {
+        firstName
+        email
+      }
+    }
+  }
+`;
