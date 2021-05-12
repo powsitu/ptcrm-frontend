@@ -6,11 +6,16 @@ import UsersTable from "../../components/Tables/users";
 export default function UserManagement() {
   const [users, set_users] = useState();
 
-  const { error, loading, data } = useQuery(ALL_USERS);
+  const { error, loading, data } = useQuery(ALL_USERS, {
+    fetchPolicy: "network-only",
+  });
+
+  async function clickSwitchStatus(userId) {
+    console.log("trying to block or unblock user", userId);
+  }
 
   useEffect(() => {
     if (data) {
-      console.log("this is the user data", data);
       set_users(data);
     }
   }, [data]);
@@ -37,6 +42,7 @@ export default function UserManagement() {
                   lastName={user.lastName}
                   email={user.email}
                   isBlocked={user.isBlocked.toString()}
+                  buttonAction={() => clickSwitchStatus(user.id)}
                 />
               );
             })

@@ -10,7 +10,7 @@ export default function UsersTable(props) {
       <td>{props.isBlocked}</td>
       <td>
         <Button variant="contained" onClick={() => props.buttonAction()}>
-          Block
+          {props.isBlocked === "false" ? "Block" : "Unblock"}
         </Button>
       </td>
     </tr>
