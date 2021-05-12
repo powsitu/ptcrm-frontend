@@ -8,6 +8,7 @@ import homepage from "./pages/homepage";
 import checkins from "./pages/userStuff/checkins";
 import feedback from "./pages/userStuff/feedback";
 import reservations from "./pages/userStuff/reservations";
+import userManagement from "./pages/adminStuff/usermanagement";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/checkins" component={checkins} />
         <Route path="/feedback" component={feedback} />
         <Route path="/reservations" component={reservations} />
+        <Route path="/admin/users" component={userManagement} />
         <Route exact path="/" component={homepage} />
       </Switch>
     </div>
