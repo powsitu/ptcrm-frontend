@@ -15,6 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_PLACES } from "../../store/places/gql_places";
+import { GET_TYPES } from "../../store/trainingTypes/gql_trainingTypes";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,8 +42,10 @@ export default function AddTraining(props) {
   const classes = useStyles();
   const [checkbox, set_checkbox] = useState(true);
   const [whereToTrain, set_whereToTrain] = useState("");
+  const [whatTraining, set_whatTraining] = useState("");
 
   const { data: places } = useQuery(GET_PLACES);
+  const { data: trainingTypes } = useQuery(GET_TYPES);
 
   const handleCheckboxChange = (event) => {
     set_checkbox(event.target.checked);
@@ -50,6 +53,10 @@ export default function AddTraining(props) {
 
   const handlePlaceChange = (event) => {
     set_whereToTrain(event.target.value);
+  };
+
+  const handleTrainingChange = (event) => {
+    set_whatTraining(event.target.value);
   };
 
   return (
@@ -141,18 +148,29 @@ export default function AddTraining(props) {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={props.password}
-                onChange={props.passwordChange}
-              />
+              <FormControl variant="outlined" className={classes.form}>
+                <InputLabel id="places">Training</InputLabel>
+                <Select
+                  labelId="Training"
+                  id="Training"
+                  value={whatTraining}
+                  onChange={handleTrainingChange}
+                  label="Training"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {trainingTypes !== undefined && trainingTypes.length !== 0
+                    ? trainingTypes.getAllTrainingTypes.map((type) => {
+                        return (
+                          <MenuItem key={type.id} value={type.id}>
+                            {type.name}
+                          </MenuItem>
+                        );
+                      })
+                    : null}
+                </Select>
+              </FormControl>
             </Grid>
           </Grid>
           <Button
