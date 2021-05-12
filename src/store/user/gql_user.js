@@ -39,6 +39,7 @@ export const SIGNUP = gql`
 export const ALL_USERS = gql`
   query allUsers {
     getAllUsers {
+      id
       firstName
       lastName
       email

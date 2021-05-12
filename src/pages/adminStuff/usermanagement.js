@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { ALL_USERS } from "../../store/user/gql_user";
+import UsersTable from "../../components/Tables/users";
 
 export default function UserManagement() {
   const [users, set_users] = useState();
@@ -26,6 +27,25 @@ export default function UserManagement() {
             <th>Action</th>
           </tr>
         </thead>
+        <tbody>
+          {users ? (
+            users.getAllUsers.map((user) => {
+              return (
+                <UsersTable
+                  key={user.id}
+                  firstName={user.firstName}
+                  lastName={user.lastName}
+                  email={user.email}
+                  isBlocked={user.isBlocked.toString()}
+                />
+              );
+            })
+          ) : (
+            <tr>
+              <td colSpan="5">Loading...</td>
+            </tr>
+          )}
+        </tbody>
       </table>
     </div>
   );
