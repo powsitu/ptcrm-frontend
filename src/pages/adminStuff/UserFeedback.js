@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function userFeedback() {
+export default function UserFeedback() {
   return (
     <div>
       This is gonna be the page for the admin to see the feedback from the
