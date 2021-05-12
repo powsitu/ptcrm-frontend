@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { selectToken } from "../../store/user/selectors";
 import LoggedIn from "./loggedin";
 import LoggedOut from "./loggedout";
+import { logoUrl } from "../../config/myVars";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flex: 1,
     justifyContent: "space-evenly",
+  },
+  logo: {
+    height: 60,
   },
 }));
 
@@ -81,9 +85,10 @@ const NavigationBar = (props) => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          {/* <Typography variant="h6" className={classes.title}>
             JO Coaching
-          </Typography>
+          </Typography> */}
+          <img src={logoUrl} alt="JO Coaching" className={classes.logo} />
           {isMobile ? (
             <>
               <IconButton
