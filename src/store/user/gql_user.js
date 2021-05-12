@@ -47,3 +47,11 @@ export const ALL_USERS = gql`
     }
   }
 `;
+
+export const SWITCH_USER_BLOCK = gql`
+  mutation switchUserBlock($userId: ID!) {
+    switchBlockStatus(userId: $userId) {
+      id
+    }
+  }
+`;

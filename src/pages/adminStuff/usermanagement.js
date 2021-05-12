@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { ALL_USERS } from "../../store/user/gql_user";
+import { ALL_USERS, SWITCH_USER_BLOCK } from "../../store/user/gql_user";
 import UsersTable from "../../components/Tables/users";
 
 export default function UserManagement() {
   const [users, set_users] = useState();
+  const [switchUserBlock] = useMutation(SWITCH_USER_BLOCK);
 
   const { error, loading, data } = useQuery(ALL_USERS, {
     fetchPolicy: "network-only",
   });
 
   async function clickSwitchStatus(userId) {
-    console.log("trying to block or unblock user", userId);
+    const response = await switchUserBlock({
+      variables: { userId: userId },
+    });
   }
 
   useEffect(() => {
