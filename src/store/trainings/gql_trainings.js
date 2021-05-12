@@ -47,3 +47,25 @@ export const ALL_TRAININGS = gql`
     }
   }
 `;
+
+export const ADD_TRAINING = gql`
+  mutation addTraining(
+    $date: String
+    $time: String
+    $attendees: Int
+    $isBookable: Boolean
+    $placeId: Int
+    $trainingTypeId: Int
+  ) {
+    addTraining(
+      date: $date
+      time: $time
+      attendees: $attendees
+      isBookable: $isBookable
+      placeId: $placeId
+      trainingTypeId: $trainingTypeId
+    ) {
+      id
+    }
+  }
+`;

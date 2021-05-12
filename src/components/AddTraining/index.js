@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -13,9 +13,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import { GET_PLACES } from "../../store/places/gql_places";
 import { GET_TYPES } from "../../store/trainingTypes/gql_trainingTypes";
+import { ADD_TRAINING } from "../../store/trainings/gql_trainings";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,24 +41,54 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddTraining(props) {
   const classes = useStyles();
-  const [checkbox, set_checkbox] = useState(true);
-  const [whereToTrain, set_whereToTrain] = useState("");
-  const [whatTraining, set_whatTraining] = useState("");
+  const [isBookable, set_isBookable] = useState(true);
+  const [placeId, set_placeId] = useState("");
+  const [trainingTypeId, set_trainingTypeId] = useState("");
+  const [date, set_date] = useState(props.date);
+  const [time, set_time] = useState("");
+  const [attendees, set_attendees] = useState(0);
+  const [addTraining] = useMutation(ADD_TRAINING);
+
+  useEffect(() => {
+    set_date(props.date);
+  }, [props.date]);
 
   const { data: places } = useQuery(GET_PLACES);
   const { data: trainingTypes } = useQuery(GET_TYPES);
 
   const handleCheckboxChange = (event) => {
-    set_checkbox(event.target.checked);
+    set_isBookable(event.target.checked);
   };
 
   const handlePlaceChange = (event) => {
-    set_whereToTrain(event.target.value);
+    set_placeId(event.target.value);
   };
 
   const handleTrainingChange = (event) => {
-    set_whatTraining(event.target.value);
+    set_trainingTypeId(event.target.value);
   };
+
+  const timeChange = (event) => {
+    set_time(event.target.value);
+  };
+
+  const attendeesChange = (event) => {
+    set_attendees(event.target.value);
+  };
+
+  async function clickSubmit(event) {
+    event.preventDefault();
+    const response = await addTraining({
+      variables: {
+        date: date,
+        time: time,
+        attendees: parseInt(attendees),
+        isBookable: isBookable,
+        placeId: parseInt(placeId),
+        trainingTypeId: parseInt(trainingTypeId),
+      },
+    });
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -80,16 +111,16 @@ export default function AddTraining(props) {
                 label="Date"
                 autoFocus
                 value={props.date}
-                onChange={props.dateChange}
+                // onChange={dateChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControlLabel
                 control={
                   <Checkbox
-                    checked={checkbox}
+                    checked={isBookable}
                     onChange={handleCheckboxChange}
-                    name="checkedB"
+                    name="isBookable"
                     color="primary"
                   />
                 }
@@ -105,8 +136,8 @@ export default function AddTraining(props) {
                 label="Time"
                 name="time"
                 autoComplete="time"
-                value={props.time}
-                onChange={props.timeChange}
+                value={time}
+                onChange={timeChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -118,17 +149,17 @@ export default function AddTraining(props) {
                 label="Attendees"
                 name="attendees"
                 autoComplete="attendees"
-                value={props.time}
-                onChange={props.timeChange}
+                value={attendees}
+                onChange={attendeesChange}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControl variant="outlined" className={classes.form}>
-                <InputLabel id="places">Place</InputLabel>
+                <InputLabel id="placeId">Place</InputLabel>
                 <Select
-                  labelId="places"
-                  id="places"
-                  value={whereToTrain}
+                  labelId="placeId"
+                  id="placeId"
+                  value={placeId}
                   onChange={handlePlaceChange}
                   label="Place"
                 >
@@ -149,11 +180,11 @@ export default function AddTraining(props) {
             </Grid>
             <Grid item xs={12}>
               <FormControl variant="outlined" className={classes.form}>
-                <InputLabel id="places">Training</InputLabel>
+                <InputLabel id="trainingTypeId">Training</InputLabel>
                 <Select
-                  labelId="Training"
-                  id="Training"
-                  value={whatTraining}
+                  labelId="trainingTypeId"
+                  id="trainingTypeId"
+                  value={trainingTypeId}
                   onChange={handleTrainingChange}
                   label="Training"
                 >
@@ -179,7 +210,7 @@ export default function AddTraining(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={props.clickSubmit}
+            onClick={clickSubmit}
           >
             Create
           </Button>
