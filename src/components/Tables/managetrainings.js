@@ -14,7 +14,7 @@ export default function TrainingsTable({ data }) {
         </tr>
       </thead>
       <tbody>
-        {data.getAllTrainings.map((training) => {
+        {data.getTrainingThisDay.map((training) => {
           return (
             <tr key={training.id}>
               <td>{training.date}</td>

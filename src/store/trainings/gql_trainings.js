@@ -4,12 +4,13 @@ export const TRAININGS_ON_DAY = gql`
   query trainingsOnDay($date: String!) {
     getTrainingThisDay(date: $date) {
       id
+      date
       time
-      trainingType {
-        name
-      }
       place {
         city
+      }
+      trainingType {
+        name
       }
       users {
         firstName
