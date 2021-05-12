@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { ALL_TRAININGS } from "../../store/trainings/gql_trainings";
+import TrainingsTable from "../../components/Tables/managetrainings";
 
 export default function ManageTrainings() {
   const [trainings, set_trainings] = useState();
@@ -16,6 +17,10 @@ export default function ManageTrainings() {
   console.log(data);
 
   return (
-    <div>This is gonna be the page for the admin to manage trainings!</div>
+    <div>
+      {data !== undefined && data.length !== 0 ? (
+        <TrainingsTable data={data} />
+      ) : null}
+    </div>
   );
 }

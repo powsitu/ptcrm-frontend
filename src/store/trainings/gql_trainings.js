@@ -35,6 +35,9 @@ export const ALL_TRAININGS = gql`
       place {
         city
       }
+      trainingType {
+        name
+      }
       users {
         firstName
         email
