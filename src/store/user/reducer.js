@@ -5,19 +5,19 @@ const initialState = {
   email: null,
 };
 
-export default (state = initialState, action) => {
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case "LOGOUT":
       localStorage.removeItem("token");
       return { ...initialState, token: null };
     case "LOGIN_SUCCESS":
-      localStorage.setItem("token", action.payload.login.token);
+      localStorage.setItem("token", action.payload.token);
       return {
         ...state,
-        ...action.payload.login.user,
-        token: action.payload.login.token,
+        ...action.payload.user,
+        token: action.payload.token,
       };
     default:
       return state;
   }
-};
+}

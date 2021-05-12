@@ -24,9 +24,6 @@ export default function Signup() {
   }, [token, history]);
 
   function submitForm(event) {
-    console.log(
-      `trying to create an account for ${firstName} ${lastName} with email: ${email}`
-    );
     event.preventDefault();
     const newUser = signup({
       variables: { email, password, firstName, lastName },
