@@ -7,7 +7,7 @@ import {
   CANCEL_RESERVATION,
 } from "../../store/reservations/gql_reservations";
 import ReservationsTable from "../../components/Tables/reservations";
-import "./reservations.css";
+import "./Reservations.css";
 
 export default function Reservations() {
   const currentUser = useSelector(selectUserId);

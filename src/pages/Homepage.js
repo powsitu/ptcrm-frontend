@@ -9,7 +9,7 @@ import {
   JOIN_TRAINING,
 } from "../store/trainings/gql_trainings";
 import TrainingTable from "../components/Tables/trainings";
-import "./homepage.css";
+import "./Homepage.css";
 import { selectUserId } from "../store/user/selectors";
 
 export default function Homepage() {

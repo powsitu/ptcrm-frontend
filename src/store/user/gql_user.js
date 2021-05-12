@@ -35,3 +35,23 @@ export const SIGNUP = gql`
     }
   }
 `;
+
+export const ALL_USERS = gql`
+  query allUsers {
+    getAllUsers {
+      id
+      firstName
+      lastName
+      email
+      isBlocked
+    }
+  }
+`;
+
+export const SWITCH_USER_BLOCK = gql`
+  mutation switchUserBlock($userId: ID!) {
+    switchBlockStatus(userId: $userId) {
+      id
+    }
+  }
+`;

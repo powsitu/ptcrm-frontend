@@ -2,12 +2,13 @@ import React from "react";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
-import LogIn from "./pages/login";
-import SignUp from "./pages/signup";
-import homepage from "./pages/homepage";
-import checkins from "./pages/userStuff/checkins";
-import feedback from "./pages/userStuff/feedback";
-import reservations from "./pages/userStuff/reservations";
+import LogIn from "./pages/Login";
+import SignUp from "./pages/Signup";
+import Homepage from "./pages/Homepage";
+import Checkins from "./pages/userStuff/Checkins";
+import Feedback from "./pages/userStuff/Feedback";
+import Reservations from "./pages/userStuff/Reservations";
+import UserManagement from "./pages/adminStuff/UserManagement";
 
 function App() {
   return (
@@ -16,10 +17,11 @@ function App() {
       <Switch>
         <Route path="/login" component={LogIn} />
         <Route path="/signup" component={SignUp} />
-        <Route path="/checkins" component={checkins} />
-        <Route path="/feedback" component={feedback} />
-        <Route path="/reservations" component={reservations} />
-        <Route exact path="/" component={homepage} />
+        <Route path="/checkins" component={Checkins} />
+        <Route path="/feedback" component={Feedback} />
+        <Route path="/reservations" component={Reservations} />
+        <Route path="/admin/users" component={UserManagement} />
+        <Route exact path="/" component={Homepage} />
       </Switch>
     </div>
   );

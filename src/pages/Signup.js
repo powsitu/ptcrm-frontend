@@ -7,7 +7,7 @@ import { SIGNUP } from "../store/user/gql_user";
 import { signupAction } from "../store/user/actions";
 import { selectToken } from "../store/user/selectors";
 
-export default function Login() {
+export default function Signup() {
   const history = useHistory();
   const dispatch = useDispatch();
   const [firstName, set_firstName] = useState("");
