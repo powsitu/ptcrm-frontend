@@ -9,6 +9,7 @@ import Checkins from "./pages/userStuff/Checkins";
 import Feedback from "./pages/userStuff/Feedback";
 import Reservations from "./pages/userStuff/Reservations";
 import UserManagement from "./pages/adminStuff/UserManagement";
+import Attendees from "./pages/adminStuff/Attendees";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/feedback" component={Feedback} />
         <Route path="/reservations" component={Reservations} />
         <Route path="/admin/users" component={UserManagement} />
+        <Route path="/admin/attendees" component={Attendees} />
         <Route exact path="/" component={Homepage} />
       </Switch>
     </div>

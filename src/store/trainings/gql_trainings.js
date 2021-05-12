@@ -11,6 +11,10 @@ export const TRAININGS_ON_DAY = gql`
       place {
         city
       }
+      users {
+        firstName
+        email
+      }
     }
   }
 `;
