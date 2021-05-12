@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function AttendeesTable({ data }) {
-  console.log("received the data in the component", data);
   return (
     <table>
       <thead>
