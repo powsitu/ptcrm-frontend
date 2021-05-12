@@ -88,6 +88,10 @@ export default function AddTraining(props) {
         trainingTypeId: parseInt(trainingTypeId),
       },
     });
+    set_time("");
+    set_attendees(0);
+    set_placeId("");
+    set_trainingTypeId("");
   }
 
   return (

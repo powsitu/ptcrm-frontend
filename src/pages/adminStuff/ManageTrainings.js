@@ -18,6 +18,7 @@ export default function ManageTrainings() {
 
   const { data } = useQuery(TRAININGS_ON_DAY, {
     variables: { date: moment(date).format("YYYY-MM-DD") },
+    fetchPolicy: "network-only",
   });
 
   useEffect(() => {
