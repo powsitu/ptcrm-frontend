@@ -8,6 +8,8 @@ export const LOGIN = gql`
         id
         firstName
         email
+        isAdmin
+        isBlocked
       }
     }
   }
@@ -31,6 +33,8 @@ export const SIGNUP = gql`
         id
         firstName
         email
+        isAdmin
+        isBlocked
       }
     }
   }
