@@ -30,6 +30,7 @@ export const JOIN_TRAINING = gql`
 export const ALL_TRAININGS = gql`
   query allTrainings {
     getAllTrainings {
+      id
       date
       time
       place {

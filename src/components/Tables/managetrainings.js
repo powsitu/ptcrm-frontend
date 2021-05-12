@@ -21,7 +21,9 @@ export default function TrainingsTable({ data }) {
               <td>{training.time}</td>
               <td>{training.place.city}</td>
               <td>{training.trainingType.name}</td>
-              <Button variant="contained">Delete</Button>
+              <td>
+                <Button variant="contained">Delete</Button>
+              </td>
             </tr>
           );
         })}
