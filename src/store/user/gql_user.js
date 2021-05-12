@@ -35,3 +35,14 @@ export const SIGNUP = gql`
     }
   }
 `;
+
+export const ALL_USERS = gql`
+  query allUsers {
+    getAllUsers {
+      firstName
+      lastName
+      email
+      isBlocked
+    }
+  }
+`;
