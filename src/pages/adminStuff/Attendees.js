@@ -5,7 +5,6 @@ import "react-calendar/dist/Calendar.css";
 import { useQuery } from "@apollo/react-hooks";
 import { TRAININGS_ON_DAY } from "../../store/trainings/gql_trainings";
 import AttendeesTable from "../../components/Tables/attendees";
-import "../Homepage.css";
 
 export default function Attendees() {
   const [date, set_date] = useState(new Date());
@@ -26,7 +25,7 @@ export default function Attendees() {
   }, [data]);
 
   return (
-    <div className="home-container">
+    <div className="container">
       <div>
         <Calendar value={date} onChange={onDateChange} />
       </div>

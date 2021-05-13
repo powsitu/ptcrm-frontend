@@ -4,7 +4,7 @@ import { CHECKINS_FOR_USER } from "../../store/checkins/gql_checkins";
 
 export default function Checkins() {
   return (
-    <div>
+    <div className="container">
       This is gonna be the page for the users to add their checkin data for
       their coach
     </div>

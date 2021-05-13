@@ -30,7 +30,7 @@ export default function UserManagement() {
   }, [data]);
 
   return (
-    <div className="users-container">
+    <div className="container">
       <table>
         <thead>
           <tr>

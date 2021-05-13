@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_TYPES } from "../../store/trainingTypes/gql_trainingTypes";
 import TrainingTypesTable from "../../components/Tables/managetrainingtypes";
 import AddTrainingType from "../../components/AddTrainingType";
-import "./ManagePlaces.css";
 
 export default function ManagePlaces() {
   const [trainingTypes, set_trainingTypes] = useState();
@@ -19,7 +18,7 @@ export default function ManagePlaces() {
   }, [data]);
 
   return (
-    <div className="places-container">
+    <div className="container">
       <div>
         {trainingTypes !== undefined && trainingTypes.length !== 0 ? (
           <TrainingTypesTable data={trainingTypes} />
