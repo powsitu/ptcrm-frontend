@@ -39,13 +39,6 @@ export default function AddPlace(props) {
   const [description, set_description] = useState("");
   const [addPlace] = useMutation(ADD_PLACE);
 
-  // useEffect(() => {
-  //   set_date(props.date);
-  // }, [props.date]);
-
-  // const { data: places } = useQuery(GET_PLACES);
-  // const { data: trainingTypes } = useQuery(GET_TYPES);
-
   const handleStreetChange = (event) => {
     set_street(event.target.value);
   };
