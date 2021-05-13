@@ -17,6 +17,8 @@ export default function reducer(state = initialState, action) {
         ...action.payload.user,
         token: action.payload.token,
       };
+    case "USER_WITH_NO_TOKEN":
+      return { ...state, ...action.payload };
     default:
       return state;
   }
