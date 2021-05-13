@@ -124,7 +124,7 @@ const NavigationBar = (props) => {
             </>
           ) : (
             <div className={classes.headerOptions}>
-              <NavigationButtons />
+              {token && <NavigationButtons />}
               {loginLogoutControls}
             </div>
           )}
