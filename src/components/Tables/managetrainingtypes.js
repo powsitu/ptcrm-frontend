@@ -1,7 +1,10 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { useMutation } from "@apollo/react-hooks";
-import { REMOVE_TRAININGTYPE } from "../../store/trainingTypes/gql_trainingTypes";
+import {
+  REMOVE_TRAININGTYPE,
+  GET_TYPES,
+} from "../../store/trainingTypes/gql_trainingTypes";
 
 export default function TrainingTypesTable({ data }) {
   const [removeTrainingType] = useMutation(REMOVE_TRAININGTYPE);
@@ -9,6 +12,11 @@ export default function TrainingTypesTable({ data }) {
   async function clickRemoveTrainingType(trainingTypeId) {
     const response = await removeTrainingType({
       variables: { trainingTypeId: parseInt(trainingTypeId) },
+      refetchQueries: [
+        {
+          query: GET_TYPES,
+        },
+      ],
     });
   }
 

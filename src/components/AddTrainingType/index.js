@@ -7,7 +7,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useMutation } from "@apollo/react-hooks";
-import { ADD_TRAININGTYPE } from "../../store/trainingTypes/gql_trainingTypes";
+import {
+  ADD_TRAININGTYPE,
+  GET_TYPES,
+} from "../../store/trainingTypes/gql_trainingTypes";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -57,6 +60,11 @@ export default function AddTrainingType(props) {
         description: description,
         intensity: parseInt(intensity),
       },
+      refetchQueries: [
+        {
+          query: GET_TYPES,
+        },
+      ],
     });
     set_name("");
     set_description("");
