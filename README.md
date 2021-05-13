@@ -9,7 +9,7 @@ It's also a place where the users can track their calories and macros so that th
 
 ## App demo
 
-`Image coming soon!`
+<img src="https://res.cloudinary.com/powsitu/image/upload/v1620937132/ptcrm/ezgif.com-gif-maker_qisvbc.gif" alt="PT CRM alpha demo" />
 
 ---
 
