@@ -10,3 +10,11 @@ export const GET_TYPES = gql`
     }
   }
 `;
+
+export const REMOVE_TRAININGTYPE = gql`
+  mutation removeTrainingType($trainingTypeId: ID!) {
+    removeTrainingType(trainingTypeId: $trainingTypeId) {
+      id
+    }
+  }
+`;

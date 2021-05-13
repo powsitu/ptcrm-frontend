@@ -1,16 +1,16 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-// import { useMutation } from "@apollo/react-hooks";
-// import { REMOVE_TRAINING } from "../../store/trainings/gql_trainings";
+import { useMutation } from "@apollo/react-hooks";
+import { REMOVE_TRAININGTYPE } from "../../store/trainingTypes/gql_trainingTypes";
 
 export default function TrainingTypesTable({ data }) {
-  // const [removeTraining] = useMutation(REMOVE_TRAINING);
+  const [removeTrainingType] = useMutation(REMOVE_TRAININGTYPE);
 
-  // async function clickRemoveTraining(trainingId) {
-  //   const response = await removeTraining({
-  //     variables: { trainingId: parseInt(trainingId) },
-  //   });
-  // }
+  async function clickRemoveTrainingType(trainingTypeId) {
+    const response = await removeTrainingType({
+      variables: { trainingTypeId: parseInt(trainingTypeId) },
+    });
+  }
 
   return (
     <table>
@@ -32,7 +32,7 @@ export default function TrainingTypesTable({ data }) {
               <td>
                 <Button
                   variant="contained"
-                  // onClick={() => clickRemoveTraining(trainingType.id)}
+                  onClick={() => clickRemoveTrainingType(trainingType.id)}
                 >
                   Delete
                 </Button>
