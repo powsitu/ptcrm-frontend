@@ -17,6 +17,7 @@ import Attendees from "./pages/adminStuff/Attendees";
 import ManageTrainings from "./pages/adminStuff/ManageTrainings";
 import ManagePlaces from "./pages/adminStuff/ManagePlaces";
 import ManageTrainingTypes from "./pages/adminStuff/ManageTrainingTypes";
+import MessageBox from "./components/MessageBox";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
   return (
     <div className="App">
       <NavigationBar />
+      <MessageBox />
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
