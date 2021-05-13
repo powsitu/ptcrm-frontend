@@ -11,12 +11,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Input from "@material-ui/core/Input";
-import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import InputLabel from "@material-ui/core/InputLabel";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddCheckin() {
   const classes = useStyles();
+  const currentUser = useSelector(selectUserId);
   const [date, set_date] = useState(moment(new Date()).format("YYYY-MM-DD"));
   const [dailyRating, set_dailyRating] = useState();
   const [comment, set_comment] = useState("");
