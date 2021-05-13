@@ -10,6 +10,7 @@ import Feedback from "./pages/userStuff/Feedback";
 import Reservations from "./pages/userStuff/Reservations";
 import UserManagement from "./pages/adminStuff/UserManagement";
 import Attendees from "./pages/adminStuff/Attendees";
+import ManageTrainings from "./pages/adminStuff/ManageTrainings";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/reservations" component={Reservations} />
         <Route path="/admin/users" component={UserManagement} />
         <Route path="/admin/attendees" component={Attendees} />
+        <Route path="/admin/trainings" component={ManageTrainings} />
         <Route exact path="/" component={Homepage} />
       </Switch>
     </div>
