@@ -7,12 +7,10 @@ import { useQuery } from "@apollo/react-hooks";
 import { TRAININGS_ON_DAY } from "../../store/trainings/gql_trainings";
 import AttendeesTable from "../../components/Tables/attendees";
 import "../Homepage.css";
-import { selectUserAdmin } from "../../store/user/selectors";
 
 export default function Attendees() {
   const [date, set_date] = useState(new Date());
   const [trainings, set_trainings] = useState([]);
-  const currentUser = useSelector(selectUserAdmin);
 
   const onDateChange = (date) => {
     set_date(date);
@@ -34,8 +32,8 @@ export default function Attendees() {
         <Calendar value={date} onChange={onDateChange} />
       </div>
       <div>
-        {data !== undefined && data.length !== 0 ? (
-          <AttendeesTable data={data} />
+        {trainings !== undefined && trainings.length !== 0 ? (
+          <AttendeesTable data={trainings} />
         ) : null}
       </div>
     </div>

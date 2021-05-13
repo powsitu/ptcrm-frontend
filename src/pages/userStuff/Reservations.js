@@ -17,6 +17,12 @@ export default function Reservations() {
   async function clickCancelReservation(reservationId) {
     const response = await cancelReservation({
       variables: { reservationId: parseInt(reservationId) },
+      refetchQueries: [
+        {
+          query: MY_RESERVATIONS,
+          variables: { userId: currentUser },
+        },
+      ],
     });
   }
 

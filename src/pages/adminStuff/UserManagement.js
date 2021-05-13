@@ -14,6 +14,12 @@ export default function UserManagement() {
   async function clickSwitchStatus(userId) {
     const response = await switchUserBlock({
       variables: { userId: userId },
+      refetchQueries: [
+        {
+          query: ALL_USERS,
+          fetchPolicy: "network-only",
+        },
+      ],
     });
   }
 
