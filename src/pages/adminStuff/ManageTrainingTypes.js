@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { GET_TYPES } from "../../store/trainingTypes/gql_trainingTypes";
-import PlacesTable from "../../components/Tables/manageplaces";
-import AddPlace from "../../components/AddPlace";
+import TrainingTypesTable from "../../components/Tables/managetrainingtypes";
+import AddTrainingType from "../../components/AddTrainingType";
 import "./ManagePlaces.css";
 
 export default function ManagePlaces() {
-  const [places, set_places] = useState();
+  const [trainingTypes, set_trainingTypes] = useState();
 
   const { data } = useQuery(GET_TYPES, {
     fetchPolicy: "network-only",
@@ -14,21 +14,21 @@ export default function ManagePlaces() {
 
   useEffect(() => {
     if (data) {
-      set_places(data.getAllTrainingTypes);
+      set_trainingTypes(data.getAllTrainingTypes);
     }
   }, [data]);
 
-  console.log(places);
+  console.log(trainingTypes);
 
   return (
     <div className="places-container">
       <div>
-        {places !== undefined && places.length !== 0 ? (
-          <PlacesTable data={places} />
+        {trainingTypes !== undefined && trainingTypes.length !== 0 ? (
+          <TrainingTypesTable data={trainingTypes} />
         ) : null}
       </div>
       <div>
-        <AddPlace />
+        <AddTrainingType />
       </div>
     </div>
   );

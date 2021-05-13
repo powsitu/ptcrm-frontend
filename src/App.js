@@ -12,6 +12,7 @@ import UserManagement from "./pages/adminStuff/UserManagement";
 import Attendees from "./pages/adminStuff/Attendees";
 import ManageTrainings from "./pages/adminStuff/ManageTrainings";
 import ManagePlaces from "./pages/adminStuff/ManagePlaces";
+import ManageTrainingTypes from "./pages/adminStuff/ManageTrainingTypes";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/admin/attendees" component={Attendees} />
         <Route path="/admin/trainings" component={ManageTrainings} />
         <Route path="/admin/places" component={ManagePlaces} />
+        <Route path="/admin/ttypes" component={ManageTrainingTypes} />
         <Route exact path="/" component={Homepage} />
       </Switch>
     </div>

@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import { useMutation } from "@apollo/react-hooks";
 import { REMOVE_TRAINING } from "../../store/trainings/gql_trainings";
 
-export default function TrainingsTable({ data }) {
+export default function TrainingTypesTable({ data }) {
   const [removeTraining] = useMutation(REMOVE_TRAINING);
 
   async function clickRemoveTraining(trainingId) {

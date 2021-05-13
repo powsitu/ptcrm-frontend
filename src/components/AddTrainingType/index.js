@@ -6,8 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { useMutation } from "@apollo/react-hooks";
-import { ADD_PLACE } from "../../store/places/gql_places";
+// import { useMutation } from "@apollo/react-hooks";
+// import { ADD_PLACE } from "../../store/places/gql_places";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,14 +30,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddPlace(props) {
+export default function AddTrainingType(props) {
   const classes = useStyles();
-  const [street, set_street] = useState("");
-  const [city, set_city] = useState("");
-  const [zip, set_zip] = useState("");
-  const [country, set_country] = useState("");
+  const [name, set_name] = useState("");
   const [description, set_description] = useState("");
-  const [addPlace] = useMutation(ADD_PLACE);
+  const [intensity, set_intensity] = useState(0);
+  // const [addPlace] = useMutation(ADD_PLACE);
 
   // useEffect(() => {
   //   set_date(props.date);
@@ -46,64 +44,55 @@ export default function AddPlace(props) {
   // const { data: places } = useQuery(GET_PLACES);
   // const { data: trainingTypes } = useQuery(GET_TYPES);
 
-  const handleStreetChange = (event) => {
-    set_street(event.target.value);
-  };
-
-  const handleCityChange = (event) => {
-    set_city(event.target.value);
-  };
-
-  const handleZipChange = (event) => {
-    set_zip(event.target.value);
-  };
-
-  const handleCountryChange = (event) => {
-    set_country(event.target.value);
+  const handleNameChange = (event) => {
+    set_name(event.target.value);
   };
 
   const handleDescriptionChange = (event) => {
     set_description(event.target.value);
   };
 
-  async function clickSubmit(event) {
-    event.preventDefault();
-    const response = await addPlace({
-      variables: {
-        street: street,
-        city: city,
-        zip: zip,
-        country: country,
-        description: description,
-      },
-    });
-    set_street("");
-    set_city("");
-    set_zip("");
-    set_country("");
-    set_description("");
-  }
+  const handleIntensityChange = (event) => {
+    set_intensity(event.target.value);
+  };
+
+  // async function clickSubmit(event) {
+  //   event.preventDefault();
+  //   const response = await addPlace({
+  //     variables: {
+  //       street: street,
+  //       city: city,
+  //       zip: zip,
+  //       country: country,
+  //       description: description,
+  //     },
+  //   });
+  //   set_name("");
+  //   set_description("");
+  //   set_intensity(0);
+  // }
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Typography component="h1" variant="h5">
-          Add a place
+          Add a training type
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <TextField
+                autoComplete="intensity"
+                name="intensity"
                 variant="outlined"
                 required
                 fullWidth
-                id="street"
-                label="Street"
-                name="street"
-                autoComplete="street"
-                value={street}
-                onChange={handleStreetChange}
+                id="intensity"
+                label="Intensity"
+                autoFocus
+                value={intensity}
+                onChange={handleIntensityChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -111,38 +100,12 @@ export default function AddPlace(props) {
                 variant="outlined"
                 required
                 fullWidth
-                id="city"
-                label="City"
-                name="city"
-                autoComplete="city"
-                value={city}
-                onChange={handleCityChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="zip"
-                label="ZIP Code"
-                name="zip"
-                autoComplete="zip"
-                value={zip}
-                onChange={handleZipChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="country"
-                label="Country"
-                name="country"
-                autoComplete="country"
-                value={country}
-                onChange={handleCountryChange}
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                value={name}
+                onChange={handleNameChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -165,7 +128,7 @@ export default function AddPlace(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={clickSubmit}
+            // onClick={clickSubmit}
           >
             Add
           </Button>
