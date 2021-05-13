@@ -7,7 +7,6 @@ import {
   CANCEL_RESERVATION,
 } from "../../store/reservations/gql_reservations";
 import ReservationsTable from "../../components/Tables/reservations";
-import "./Reservations.css";
 
 export default function Reservations() {
   const currentUser = useSelector(selectUserId);
@@ -38,7 +37,7 @@ export default function Reservations() {
   }, [data]);
 
   return (
-    <div className="reservations-container">
+    <div className="container">
       <table>
         <thead>
           <tr>

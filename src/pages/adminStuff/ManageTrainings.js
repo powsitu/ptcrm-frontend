@@ -6,7 +6,6 @@ import AddTraining from "../../components/AddTraining";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment from "moment";
-import "./ManageTrainings.css";
 
 export default function ManageTrainings() {
   const [trainings, set_trainings] = useState();
@@ -28,7 +27,7 @@ export default function ManageTrainings() {
   }, [data]);
 
   return (
-    <div className="trainings-container">
+    <div className="container">
       <div>
         <Calendar value={date} onChange={onDateChange} />
       </div>

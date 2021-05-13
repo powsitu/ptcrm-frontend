@@ -9,7 +9,6 @@ import {
   JOIN_TRAINING,
 } from "../store/trainings/gql_trainings";
 import TrainingTable from "../components/Tables/trainings";
-import "./Homepage.css";
 import { selectUserId } from "../store/user/selectors";
 
 export default function Homepage() {
@@ -38,7 +37,7 @@ export default function Homepage() {
   }, [data]);
 
   return (
-    <div className="home-container">
+    <div className="container">
       <div>
         <Calendar value={date} onChange={onDateChange} />
       </div>
