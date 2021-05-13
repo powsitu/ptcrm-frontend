@@ -1,15 +1,19 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { useMutation } from "@apollo/react-hooks";
-import { REMOVE_PLACE } from "../../store/places/gql_places";
+import { REMOVE_PLACE, GET_PLACES } from "../../store/places/gql_places";
 
 export default function PlacesTable({ data }) {
   const [removePlace] = useMutation(REMOVE_PLACE);
 
   async function clickRemovePlace(placeId) {
-    console.log("trying to remove place", placeId);
     const response = await removePlace({
       variables: { placeId: parseInt(placeId) },
+      refetchQueries: [
+        {
+          query: GET_PLACES,
+        },
+      ],
     });
   }
 

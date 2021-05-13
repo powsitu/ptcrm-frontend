@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -16,7 +17,10 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { GET_PLACES } from "../../store/places/gql_places";
 import { GET_TYPES } from "../../store/trainingTypes/gql_trainingTypes";
-import { ADD_TRAINING } from "../../store/trainings/gql_trainings";
+import {
+  ADD_TRAINING,
+  TRAININGS_ON_DAY,
+} from "../../store/trainings/gql_trainings";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -87,6 +91,12 @@ export default function AddTraining(props) {
         placeId: parseInt(placeId),
         trainingTypeId: parseInt(trainingTypeId),
       },
+      refetchQueries: [
+        {
+          query: TRAININGS_ON_DAY,
+          variables: { date: moment(date).format("YYYY-MM-DD") },
+        },
+      ],
     });
     set_time("");
     set_attendees(0);

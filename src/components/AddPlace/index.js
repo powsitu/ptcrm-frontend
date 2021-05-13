@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useMutation } from "@apollo/react-hooks";
-import { ADD_PLACE } from "../../store/places/gql_places";
+import { ADD_PLACE, GET_PLACES } from "../../store/places/gql_places";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -69,6 +69,11 @@ export default function AddPlace(props) {
         country: country,
         description: description,
       },
+      refetchQueries: [
+        {
+          query: GET_PLACES,
+        },
+      ],
     });
     set_street("");
     set_city("");

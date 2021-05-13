@@ -34,7 +34,7 @@ export default function ManageTrainings() {
       </div>
       <div>
         {trainings !== undefined && trainings.length !== 0 ? (
-          <TrainingsTable data={trainings} />
+          <TrainingsTable data={trainings} date={date} />
         ) : null}
       </div>
       <div>
