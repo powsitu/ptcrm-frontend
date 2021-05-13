@@ -10,7 +10,8 @@ import Button from "@material-ui/core/Button";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectToken } from "../../store/user/selectors";
+import { selectToken, selectUserAdmin } from "../../store/user/selectors";
+import NavigationButtons from "./NavigationButtons";
 import LoggedIn from "./loggedin";
 import LoggedOut from "./loggedout";
 import { logoUrl } from "../../config/myVars";
@@ -57,10 +58,6 @@ const NavigationBar = (props) => {
     setAnchorEl(null);
   };
 
-  const handleButtonClick = (pageURL) => {
-    history.push(pageURL);
-  };
-
   const menuItems = [
     {
       menuTitle: "Home",
@@ -95,6 +92,7 @@ const NavigationBar = (props) => {
                 onClick={handleMenu}
               >
                 <MenuIcon />
+                {loginLogoutControls}
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -126,30 +124,7 @@ const NavigationBar = (props) => {
             </>
           ) : (
             <div className={classes.headerOptions}>
-              <Button
-                variant="contained"
-                onClick={() => handleButtonClick("/")}
-              >
-                Home
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => handleButtonClick("/checkins")}
-              >
-                Checkins
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => handleButtonClick("/feedback")}
-              >
-                Feedback
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => handleButtonClick("/reservations")}
-              >
-                Reservations
-              </Button>
+              {token && <NavigationButtons />}
               {loginLogoutControls}
             </div>
           )}
