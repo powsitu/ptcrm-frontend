@@ -59,3 +59,13 @@ export const SWITCH_USER_BLOCK = gql`
     }
   }
 `;
+
+export const CHECK_TOKEN = gql`
+  query checkToken {
+    checkToken {
+      id
+      firstName
+      email
+    }
+  }
+`;

@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useQuery } from "@apollo/react-hooks";
+import { CHECK_TOKEN } from "./store/user/gql_user";
+import { getUserFromStoredToken } from "./store/user/actions";
 import NavigationBar from "./components/NavigationBar";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -15,6 +19,15 @@ import ManagePlaces from "./pages/adminStuff/ManagePlaces";
 import ManageTrainingTypes from "./pages/adminStuff/ManageTrainingTypes";
 
 function App() {
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+
+  const { error, data } = useQuery(CHECK_TOKEN, { skip: !token });
+
+  useEffect(() => {
+    dispatch(getUserFromStoredToken(data, error));
+  }, [dispatch, error, data]);
+
   return (
     <div className="App">
       <NavigationBar />

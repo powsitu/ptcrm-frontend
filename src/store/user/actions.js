@@ -5,6 +5,11 @@ const loginSuccess = (userWithToken) => {
   };
 };
 
+const validToken = (userWithNoToken) => ({
+  type: "USER_WITH_NO_TOKEN",
+  payload: userWithNoToken,
+});
+
 export const logoutAction = () => ({ type: "LOGOUT" });
 
 export const loginAction = (userLogin) => {
@@ -25,6 +30,20 @@ export const signupAction = (newUser) => {
       dispatch(loginSuccess(response.data.signup));
     } catch (error) {
       console.log(error);
+    }
+  };
+};
+
+export const getUserFromStoredToken = (data, error) => {
+  return async (dispatch, getState) => {
+    if (error) console.log(error);
+    if (!data) return;
+    const user = await data;
+    try {
+      dispatch(validToken(user.checkToken));
+    } catch (error) {
+      console.log(error);
+      dispatch(logoutAction);
     }
   };
 };
