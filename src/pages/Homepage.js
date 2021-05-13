@@ -22,6 +22,7 @@ export default function Homepage() {
 
   const { data } = useQuery(TRAININGS_ON_DAY, {
     variables: { date: moment(date).format("YYYY-MM-DD") },
+    fetchPolicy: "network-only",
   });
 
   async function clickJoinTraining(userId, trainingId) {

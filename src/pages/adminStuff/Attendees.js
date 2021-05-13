@@ -16,6 +16,7 @@ export default function Attendees() {
 
   const { data } = useQuery(TRAININGS_ON_DAY, {
     variables: { date: moment(date).format("YYYY-MM-DD") },
+    fetchPolicy: "network-only",
   });
 
   useEffect(() => {
