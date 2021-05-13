@@ -66,6 +66,8 @@ export const CHECK_TOKEN = gql`
       id
       firstName
       email
+      isAdmin
+      isBlocked
     }
   }
 `;
