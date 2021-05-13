@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectToken, selectUserAdmin } from "../../store/user/selectors";
+import { selectUserAdmin } from "../../store/user/selectors";
 import Button from "@material-ui/core/Button";
 
 export default function NavigationButtons() {
