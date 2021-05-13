@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { GET_TYPES } from "../../store/trainingTypes/gql_trainingTypes";
 import TrainingTypesTable from "../../components/Tables/managetrainingtypes";
 import AddTrainingType from "../../components/AddTrainingType";
@@ -17,8 +17,6 @@ export default function ManagePlaces() {
       set_trainingTypes(data.getAllTrainingTypes);
     }
   }, [data]);
-
-  console.log(trainingTypes);
 
   return (
     <div className="places-container">

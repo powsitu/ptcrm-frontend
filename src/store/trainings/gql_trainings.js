@@ -13,6 +13,7 @@ export const TRAININGS_ON_DAY = gql`
         name
       }
       users {
+        id
         firstName
         email
       }
