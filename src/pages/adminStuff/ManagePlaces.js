@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { GET_PLACES } from "../../store/places/gql_places";
 import PlacesTable from "../../components/Tables/manageplaces";
 import AddPlace from "../../components/AddPlace";
@@ -17,8 +17,6 @@ export default function ManagePlaces() {
       set_places(data.getAllPlaces);
     }
   }, [data]);
-
-  console.log(places);
 
   return (
     <div className="places-container">

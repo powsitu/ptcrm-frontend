@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -38,13 +38,6 @@ export default function AddPlace(props) {
   const [country, set_country] = useState("");
   const [description, set_description] = useState("");
   const [addPlace] = useMutation(ADD_PLACE);
-
-  // useEffect(() => {
-  //   set_date(props.date);
-  // }, [props.date]);
-
-  // const { data: places } = useQuery(GET_PLACES);
-  // const { data: trainingTypes } = useQuery(GET_TYPES);
 
   const handleStreetChange = (event) => {
     set_street(event.target.value);

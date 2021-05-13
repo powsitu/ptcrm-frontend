@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NavigationBar = (props) => {
-  const { history } = props;
   const token = useSelector(selectToken);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
