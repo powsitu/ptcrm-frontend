@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import Button from "@material-ui/core/Button";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { withRouter } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectToken, selectUserAdmin } from "../../store/user/selectors";
+import { selectToken } from "../../store/user/selectors";
 import NavigationButtons from "./NavigationButtons";
+import MobileNavigationButtons from "./MobileNavigationButtons";
 import LoggedIn from "./loggedin";
 import LoggedOut from "./loggedout";
 import { logoUrl } from "../../config/myVars";
@@ -42,7 +41,7 @@ const NavigationBar = (props) => {
   const { history } = props;
   const token = useSelector(selectToken);
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
@@ -52,30 +51,6 @@ const NavigationBar = (props) => {
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  const handleMenuClick = (pageURL) => {
-    history.push(pageURL);
-    setAnchorEl(null);
-  };
-
-  const menuItems = [
-    {
-      menuTitle: "Home",
-      pageURL: "/",
-    },
-    {
-      menuTitle: "Checkins",
-      pageURL: "/checkins",
-    },
-    {
-      menuTitle: "Feedback",
-      pageURL: "/feedback",
-    },
-    {
-      menuTitle: "Reservations",
-      pageURL: "/reservations",
-    },
-  ];
 
   return (
     <div className={classes.root}>
@@ -109,17 +84,7 @@ const NavigationBar = (props) => {
                 open={open}
                 onClose={() => setAnchorEl(null)}
               >
-                {menuItems.map((menuItem, index) => {
-                  const { menuTitle, pageURL } = menuItem;
-                  return (
-                    <MenuItem
-                      key={index}
-                      onClick={() => handleMenuClick(pageURL)}
-                    >
-                      {menuTitle}
-                    </MenuItem>
-                  );
-                })}
+                {<MobileNavigationButtons />}
               </Menu>
             </>
           ) : (
