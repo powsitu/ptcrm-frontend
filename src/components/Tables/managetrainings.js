@@ -1,7 +1,17 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
+import { useMutation } from "@apollo/react-hooks";
+import { REMOVE_TRAINING } from "../../store/trainings/gql_trainings";
 
 export default function TrainingsTable({ data }) {
+  const [removeTraining] = useMutation(REMOVE_TRAINING);
+
+  async function clickRemoveTraining(trainingId) {
+    const response = await removeTraining({
+      variables: { trainingId: parseInt(trainingId) },
+    });
+  }
+
   return (
     <table>
       <thead>
@@ -20,7 +30,12 @@ export default function TrainingsTable({ data }) {
               <td>{training.place.city}</td>
               <td>{training.trainingType.name}</td>
               <td>
-                <Button variant="contained">Delete</Button>
+                <Button
+                  variant="contained"
+                  onClick={() => clickRemoveTraining(training.id)}
+                >
+                  Delete
+                </Button>
               </td>
             </tr>
           );

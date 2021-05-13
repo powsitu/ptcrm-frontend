@@ -69,3 +69,11 @@ export const ADD_TRAINING = gql`
     }
   }
 `;
+
+export const REMOVE_TRAINING = gql`
+  mutation removeTraining($trainingId: ID!) {
+    removeTraining(trainingId: $trainingId) {
+      id
+    }
+  }
+`;
