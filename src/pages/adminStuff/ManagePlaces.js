@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { GET_PLACES } from "../../store/places/gql_places";
 import PlacesTable from "../../components/Tables/manageplaces";
+import AddPlace from "../../components/AddPlace";
+import "./ManagePlaces.css";
 
 export default function ManagePlaces() {
   const [places, set_places] = useState();
@@ -20,9 +22,14 @@ export default function ManagePlaces() {
 
   return (
     <div className="places-container">
-      {places !== undefined && places.length !== 0 ? (
-        <PlacesTable data={places} />
-      ) : null}
+      <div>
+        {places !== undefined && places.length !== 0 ? (
+          <PlacesTable data={places} />
+        ) : null}
+      </div>
+      <div>
+        <AddPlace />
+      </div>
     </div>
   );
 }
