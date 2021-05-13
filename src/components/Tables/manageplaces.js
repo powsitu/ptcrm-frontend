@@ -1,16 +1,16 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { useMutation } from "@apollo/react-hooks";
-import { REMOVE_TRAINING } from "../../store/trainings/gql_trainings";
+import { REMOVE_PLACE } from "../../store/places/gql_places";
 
 export default function PlacesTable({ data }) {
-  const [removeTraining] = useMutation(REMOVE_TRAINING);
+  const [removePlace] = useMutation(REMOVE_PLACE);
 
   async function clickRemovePlace(placeId) {
     console.log("trying to remove place", placeId);
-    // const response = await removeTraining({
-    //   variables: { trainingId: parseInt(trainingId) },
-    // });
+    const response = await removePlace({
+      variables: { placeId: parseInt(placeId) },
+    });
   }
 
   return (

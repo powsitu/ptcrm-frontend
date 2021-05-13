@@ -12,3 +12,11 @@ export const GET_PLACES = gql`
     }
   }
 `;
+
+export const REMOVE_PLACE = gql`
+  mutation removePlace($placeId: Int!) {
+    removePlace(placeId: $placeId) {
+      id
+    }
+  }
+`;
