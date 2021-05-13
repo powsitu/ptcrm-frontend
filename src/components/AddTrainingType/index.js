@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -6,8 +6,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-// import { useMutation } from "@apollo/react-hooks";
-// import { ADD_PLACE } from "../../store/places/gql_places";
+import { useMutation } from "@apollo/react-hooks";
+import { ADD_TRAININGTYPE } from "../../store/trainingTypes/gql_trainingTypes";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,14 +35,7 @@ export default function AddTrainingType(props) {
   const [name, set_name] = useState("");
   const [description, set_description] = useState("");
   const [intensity, set_intensity] = useState(0);
-  // const [addPlace] = useMutation(ADD_PLACE);
-
-  // useEffect(() => {
-  //   set_date(props.date);
-  // }, [props.date]);
-
-  // const { data: places } = useQuery(GET_PLACES);
-  // const { data: trainingTypes } = useQuery(GET_TYPES);
+  const [addTrainingType] = useMutation(ADD_TRAININGTYPE);
 
   const handleNameChange = (event) => {
     set_name(event.target.value);
@@ -56,21 +49,19 @@ export default function AddTrainingType(props) {
     set_intensity(event.target.value);
   };
 
-  // async function clickSubmit(event) {
-  //   event.preventDefault();
-  //   const response = await addPlace({
-  //     variables: {
-  //       street: street,
-  //       city: city,
-  //       zip: zip,
-  //       country: country,
-  //       description: description,
-  //     },
-  //   });
-  //   set_name("");
-  //   set_description("");
-  //   set_intensity(0);
-  // }
+  async function clickSubmit(event) {
+    event.preventDefault();
+    const response = await addTrainingType({
+      variables: {
+        name: name,
+        description: description,
+        intensity: parseInt(intensity),
+      },
+    });
+    set_name("");
+    set_description("");
+    set_intensity(0);
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -128,7 +119,7 @@ export default function AddTrainingType(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // onClick={clickSubmit}
+            onClick={clickSubmit}
           >
             Add
           </Button>

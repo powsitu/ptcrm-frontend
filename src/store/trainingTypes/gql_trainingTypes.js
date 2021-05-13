@@ -18,3 +18,19 @@ export const REMOVE_TRAININGTYPE = gql`
     }
   }
 `;
+
+export const ADD_TRAININGTYPE = gql`
+  mutation addTrainingType(
+    $name: String
+    $description: String
+    $intensity: Int
+  ) {
+    addTrainingType(
+      name: $name
+      description: $description
+      intensity: $intensity
+    ) {
+      id
+    }
+  }
+`;
