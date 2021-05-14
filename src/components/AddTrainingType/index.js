@@ -11,6 +11,13 @@ import {
   ADD_TRAININGTYPE,
   GET_TYPES,
 } from "../../store/trainingTypes/gql_trainingTypes";
+import {
+  setMessage,
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+} from "../../store/appState/actions";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddTrainingType(props) {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [name, set_name] = useState("");
   const [description, set_description] = useState("");
@@ -54,18 +62,28 @@ export default function AddTrainingType(props) {
 
   async function clickSubmit(event) {
     event.preventDefault();
-    const response = await addTrainingType({
-      variables: {
-        name: name,
-        description: description,
-        intensity: parseInt(intensity),
-      },
-      refetchQueries: [
-        {
-          query: GET_TYPES,
+    dispatch(appLoading());
+    try {
+      const response = await addTrainingType({
+        variables: {
+          name: name,
+          description: description,
+          intensity: parseInt(intensity),
         },
-      ],
-    });
+        refetchQueries: [
+          {
+            query: GET_TYPES,
+          },
+        ],
+      });
+      dispatch(
+        showMessageWithTimeout("success", false, "Training type added!", 1500)
+      );
+      dispatch(appDoneLoading());
+    } catch (error) {
+      dispatch(appDoneLoading());
+      dispatch(setMessage("danger", true, error.message));
+    }
     set_name("");
     set_description("");
     set_intensity(0);

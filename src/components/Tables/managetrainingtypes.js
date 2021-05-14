@@ -5,19 +5,37 @@ import {
   REMOVE_TRAININGTYPE,
   GET_TYPES,
 } from "../../store/trainingTypes/gql_trainingTypes";
+import { useDispatch } from "react-redux";
+import {
+  setMessage,
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+} from "../../store/appState/actions";
 
 export default function TrainingTypesTable({ data }) {
+  const dispatch = useDispatch();
   const [removeTrainingType] = useMutation(REMOVE_TRAININGTYPE);
 
   async function clickRemoveTrainingType(trainingTypeId) {
-    const response = await removeTrainingType({
-      variables: { trainingTypeId: parseInt(trainingTypeId) },
-      refetchQueries: [
-        {
-          query: GET_TYPES,
-        },
-      ],
-    });
+    dispatch(appLoading());
+    try {
+      const response = await removeTrainingType({
+        variables: { trainingTypeId: parseInt(trainingTypeId) },
+        refetchQueries: [
+          {
+            query: GET_TYPES,
+          },
+        ],
+      });
+      dispatch(
+        showMessageWithTimeout("success", false, "Training type removed!", 1500)
+      );
+      dispatch(appDoneLoading());
+    } catch (error) {
+      dispatch(setMessage("danger", true, error.message));
+      dispatch(appDoneLoading());
+    }
   }
 
   return (

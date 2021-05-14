@@ -8,6 +8,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useMutation } from "@apollo/react-hooks";
 import { ADD_PLACE, GET_PLACES } from "../../store/places/gql_places";
+import {
+  setMessage,
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+} from "../../store/appState/actions";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -31,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddPlace(props) {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [street, set_street] = useState("");
   const [city, set_city] = useState("");
@@ -61,20 +69,28 @@ export default function AddPlace(props) {
 
   async function clickSubmit(event) {
     event.preventDefault();
-    const response = await addPlace({
-      variables: {
-        street: street,
-        city: city,
-        zip: zip,
-        country: country,
-        description: description,
-      },
-      refetchQueries: [
-        {
-          query: GET_PLACES,
+    dispatch(appLoading());
+    try {
+      const response = await addPlace({
+        variables: {
+          street: street,
+          city: city,
+          zip: zip,
+          country: country,
+          description: description,
         },
-      ],
-    });
+        refetchQueries: [
+          {
+            query: GET_PLACES,
+          },
+        ],
+      });
+      dispatch(showMessageWithTimeout("success", false, "Place added!", 1500));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      dispatch(setMessage("danger", true, error.message));
+      dispatch(appDoneLoading());
+    }
     set_street("");
     set_city("");
     set_zip("");

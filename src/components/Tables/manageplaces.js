@@ -2,19 +2,37 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import { useMutation } from "@apollo/react-hooks";
 import { REMOVE_PLACE, GET_PLACES } from "../../store/places/gql_places";
+import {
+  setMessage,
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+} from "../../store/appState/actions";
+import { useDispatch } from "react-redux";
 
 export default function PlacesTable({ data }) {
+  const dispatch = useDispatch();
   const [removePlace] = useMutation(REMOVE_PLACE);
 
   async function clickRemovePlace(placeId) {
-    const response = await removePlace({
-      variables: { placeId: parseInt(placeId) },
-      refetchQueries: [
-        {
-          query: GET_PLACES,
-        },
-      ],
-    });
+    dispatch(appLoading());
+    try {
+      const response = await removePlace({
+        variables: { placeId: parseInt(placeId) },
+        refetchQueries: [
+          {
+            query: GET_PLACES,
+          },
+        ],
+      });
+      dispatch(
+        showMessageWithTimeout("success", false, "Place removed!", 1500)
+      );
+      dispatch(appDoneLoading());
+    } catch (error) {
+      dispatch(setMessage("danger", true, error.message));
+      dispatch(appDoneLoading());
+    }
   }
 
   return (
