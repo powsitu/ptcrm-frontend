@@ -1,10 +1,12 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import CheckinTable from "../../components/Tables/usercheckins";
 
 export default function UserProfile() {
+  const { id } = useParams();
   return (
-    <div>
-      This is gonna be the profile page for each user to see their checkins and
-      more stuff to come! Stay tuned!!!
+    <div className="container">
+      <CheckinTable userId={id} />
     </div>
   );
 }

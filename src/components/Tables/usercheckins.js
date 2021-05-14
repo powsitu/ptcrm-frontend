@@ -6,12 +6,13 @@ import { CHECKINS_FOR_USER } from "../../store/checkins/gql_checkins";
 import Loading from "../Loading";
 import { setMessage } from "../../store/appState/actions";
 
-export default function CheckinTable() {
+export default function CheckinTable(props) {
   const dispatch = useDispatch();
   const currentUser = useSelector(selectUserId);
+  const thisUser = props.userId || currentUser;
 
   const { data, loading, error } = useQuery(CHECKINS_FOR_USER, {
-    variables: { id: parseInt(currentUser) },
+    variables: { id: parseInt(thisUser) },
     fetchPolicy: "network-only",
   });
   if (loading) {
