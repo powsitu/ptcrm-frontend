@@ -25,9 +25,9 @@ export default function AttendeesTable({ data }) {
                   {training.place.city}
                 </td>
               </tr>
-              {training.users.map((attendee) => {
+              {training.users.map((attendee, index) => {
                 return (
-                  <tr key={attendee.id}>
+                  <tr key={index}>
                     <td>{attendee.firstName}</td>
                     <td>{attendee.email}</td>
                   </tr>
