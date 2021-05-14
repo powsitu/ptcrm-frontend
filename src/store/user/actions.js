@@ -25,7 +25,7 @@ export const loginAction = (userLogin) => {
     try {
       const response = await userLogin;
 
-      if (response.data.login.isBlocked === false) {
+      if (response.data.login.user.isBlocked === false) {
         dispatch(loginSuccess(response.data.login));
         dispatch(showMessageWithTimeout("success", false, "Welcome!", 1500));
         dispatch(appDoneLoading());
