@@ -109,6 +109,12 @@ export default function AddCheckin() {
       dispatch(setMessage("danger", true, error.message));
       dispatch(appDoneLoading());
     }
+    set_dailyRating("");
+    set_comment("");
+    set_calories("");
+    set_proteins("");
+    set_carbs("");
+    set_fats("");
   }
 
   return (
