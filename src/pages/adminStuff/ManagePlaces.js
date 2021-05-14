@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_PLACES } from "../../store/places/gql_places";
 import PlacesTable from "../../components/Tables/manageplaces";
