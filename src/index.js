@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 import store from "./store";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const client = new ApolloClient({
   request: (operation) => {
