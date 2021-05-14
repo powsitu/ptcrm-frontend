@@ -50,7 +50,7 @@ export default function AddCheckin() {
   const classes = useStyles();
   const currentUser = useSelector(selectUserId);
   const [date, set_date] = useState(moment(new Date()).format("YYYY-MM-DD"));
-  const [dailyRating, set_dailyRating] = useState();
+  const [dailyRating, set_dailyRating] = useState("");
   const [comment, set_comment] = useState("");
   const [proteins, set_proteins] = useState("");
   const [calories, set_calories] = useState("");
