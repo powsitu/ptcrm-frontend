@@ -7,6 +7,13 @@
 PT CRM is a platform where users can see the availability of their favorite personal trainer and book some time for an intake or join any classes the coach might be giving.
 It's also a place where the users can track their calories and macros so that the personal trainer can review them.
 
+## Goals for this project
+
+- demonstrate the main skills I've learned at the Codaisseur Academy.
+- build a full-stack web app from a first idea into a working version within a two-week sprint
+- practice planning with user-stories, wireframes, datamodels, a kanban projectboard and git version control
+- extend my coding knowledge and try out new technologies. I chose to use this opportunity to learn GraphQL and Material UI.
+
 ## App demo
 
 <img src="https://res.cloudinary.com/powsitu/image/upload/v1620937132/ptcrm/ezgif.com-gif-maker_qisvbc.gif" alt="PT CRM alpha demo" />
