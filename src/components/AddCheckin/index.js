@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import moment from "moment";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
+import {
+  ADD_CHECKIN,
+  CHECKINS_FOR_USER,
+} from "../../store/checkins/gql_checkins";
 import { useSelector } from "react-redux";
 import { selectUserId } from "../../store/user/selectors";
 import Button from "@material-ui/core/Button";
@@ -11,6 +15,13 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Input from "@material-ui/core/Input";
+import {
+  setMessage,
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+} from "../../store/appState/actions";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,15 +45,71 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddCheckin() {
+  const dispatch = useDispatch();
+  const [addCheckin] = useMutation(ADD_CHECKIN);
   const classes = useStyles();
   const currentUser = useSelector(selectUserId);
   const [date, set_date] = useState(moment(new Date()).format("YYYY-MM-DD"));
   const [dailyRating, set_dailyRating] = useState();
   const [comment, set_comment] = useState("");
-  const [proteins, set_proteins] = useState();
-  const [calories, set_calories] = useState();
-  const [carbs, set_carbs] = useState();
-  const [fats, set_fats] = useState();
+  const [proteins, set_proteins] = useState("");
+  const [calories, set_calories] = useState("");
+  const [carbs, set_carbs] = useState("");
+  const [fats, set_fats] = useState("");
+
+  const dateChange = (event) => {
+    set_date(event.target.value);
+  };
+  const dailyRatingChange = (event) => {
+    set_dailyRating(event.target.value);
+  };
+  const commentChange = (event) => {
+    set_comment(event.target.value);
+  };
+  const proteinsChange = (event) => {
+    set_proteins(event.target.value);
+  };
+  const caloriesChange = (event) => {
+    set_calories(event.target.value);
+  };
+  const carbsChange = (event) => {
+    set_carbs(event.target.value);
+  };
+  const fatsChange = (event) => {
+    set_fats(event.target.value);
+  };
+
+  async function clickSubmit(event) {
+    event.preventDefault();
+    dispatch(appLoading());
+    try {
+      const response = await addCheckin({
+        variables: {
+          userId: parseInt(currentUser),
+          date: date,
+          calories: parseInt(calories),
+          proteins: parseInt(proteins),
+          carbs: parseInt(carbs),
+          fats: parseInt(fats),
+          dailyRating: parseInt(dailyRating),
+          comment: comment,
+        },
+        refetchQueries: [
+          {
+            query: CHECKINS_FOR_USER,
+            variables: { id: parseInt(currentUser) },
+          },
+        ],
+      });
+      dispatch(
+        showMessageWithTimeout("success", false, "Checkin added!", 1500)
+      );
+      dispatch(appDoneLoading());
+    } catch (error) {
+      dispatch(setMessage("danger", true, error.message));
+      dispatch(appDoneLoading());
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -65,7 +132,7 @@ export default function AddCheckin() {
                 label="Date"
                 autoFocus
                 value={date}
-                // onChange={dateChange}
+                onChange={dateChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -78,7 +145,7 @@ export default function AddCheckin() {
                 name="dailyRating"
                 autoComplete="dailyRating"
                 value={dailyRating}
-                // onChange={dailyRatingChange}
+                onChange={dailyRatingChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -91,7 +158,7 @@ export default function AddCheckin() {
                 name="calories"
                 autoComplete="calories"
                 value={calories}
-                // onChange={caloriesChange}
+                onChange={caloriesChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -104,7 +171,7 @@ export default function AddCheckin() {
                 name="proteins"
                 autoComplete="proteins"
                 value={proteins}
-                // onChange={proteinsChange}
+                onChange={proteinsChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -117,7 +184,7 @@ export default function AddCheckin() {
                 name="carbs"
                 autoComplete="carbs"
                 value={carbs}
-                // onChange={carbsChange}
+                onChange={carbsChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -130,7 +197,7 @@ export default function AddCheckin() {
                 name="fats"
                 autoComplete="fats"
                 value={fats}
-                // onChange={fatsChange}
+                onChange={fatsChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -143,7 +210,7 @@ export default function AddCheckin() {
                 name="comment"
                 autoComplete="comment"
                 value={comment}
-                // onChange={commentChange}
+                onChange={commentChange}
               />
             </Grid>
           </Grid>
@@ -153,7 +220,7 @@ export default function AddCheckin() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            // onClick={clickSubmit}
+            onClick={clickSubmit}
           >
             Create
           </Button>

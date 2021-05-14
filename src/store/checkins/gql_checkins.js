@@ -14,3 +14,29 @@ export const CHECKINS_FOR_USER = gql`
     }
   }
 `;
+
+export const ADD_CHECKIN = gql`
+  mutation addCheckin(
+    $userId: ID!
+    $date: String
+    $calories: Int
+    $proteins: Int
+    $carbs: Int
+    $fats: Int
+    $dailyRating: Int
+    $comment: String
+  ) {
+    addCheckin(
+      userId: $userId
+      date: $date
+      calories: $calories
+      proteins: $proteins
+      carbs: $carbs
+      fats: $fats
+      dailyRating: $dailyRating
+      comment: $comment
+    ) {
+      id
+    }
+  }
+`;
