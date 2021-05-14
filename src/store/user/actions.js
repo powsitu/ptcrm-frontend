@@ -24,9 +24,23 @@ export const loginAction = (userLogin) => {
     dispatch(appLoading());
     try {
       const response = await userLogin;
-      dispatch(loginSuccess(response.data.login));
-      dispatch(showMessageWithTimeout("success", false, "Welcome!", 1500));
-      dispatch(appDoneLoading());
+
+      if (response.data.login.isBlocked === false) {
+        dispatch(loginSuccess(response.data.login));
+        dispatch(showMessageWithTimeout("success", false, "Welcome!", 1500));
+        dispatch(appDoneLoading());
+      } else {
+        dispatch(logoutAction());
+        dispatch(
+          showMessageWithTimeout(
+            "danger",
+            false,
+            "Youre blocked, please contact our admin!",
+            1500
+          )
+        );
+        dispatch(appDoneLoading());
+      }
     } catch (error) {
       if (error.response) {
         dispatch(setMessage("danger", true, error.response.data.message));
