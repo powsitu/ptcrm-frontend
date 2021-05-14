@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { ALL_USERS, SWITCH_USER_BLOCK } from "../../store/user/gql_user";
 import UsersTable from "../../components/Tables/users";
@@ -12,6 +13,7 @@ import {
 } from "../../store/appState/actions";
 
 export default function UserManagement() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [switchUserBlock] = useMutation(SWITCH_USER_BLOCK);
 
@@ -25,6 +27,10 @@ export default function UserManagement() {
     dispatch(setMessage("danger", true, error.message));
     return <Loading />;
   }
+
+  const profileButtonClick = (userId) => {
+    history.push(`/admin/users/${userId}`);
+  };
 
   async function clickSwitchStatus(userId) {
     dispatch(appLoading());
@@ -56,7 +62,7 @@ export default function UserManagement() {
             <th>First name</th>
             <th>Last name</th>
             <th>Email</th>
-            <th>Blocked</th>
+            <th>Profile</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -66,10 +72,12 @@ export default function UserManagement() {
               return (
                 <UsersTable
                   key={user.id}
+                  userId={user.id}
                   firstName={user.firstName}
                   lastName={user.lastName}
                   email={user.email}
                   isBlocked={user.isBlocked.toString()}
+                  profileButtonAction={() => profileButtonClick(user.id)}
                   buttonAction={() => clickSwitchStatus(user.id)}
                 />
               );

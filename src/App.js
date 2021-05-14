@@ -18,6 +18,7 @@ import ManageTrainings from "./pages/adminStuff/ManageTrainings";
 import ManagePlaces from "./pages/adminStuff/ManagePlaces";
 import ManageTrainingTypes from "./pages/adminStuff/ManageTrainingTypes";
 import MessageBox from "./components/MessageBox";
+import UserProfile from "./pages/adminStuff/UserProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,7 +40,8 @@ function App() {
         <Route path="/checkins" component={Checkins} />
         <Route path="/feedback" component={Feedback} />
         <Route path="/reservations" component={Reservations} />
-        <Route path="/admin/users" component={UserManagement} />
+        <Route exact path="/admin/users" component={UserManagement} />
+        <Route path="/admin/users/:id" component={UserProfile} />
         <Route path="/admin/attendees" component={Attendees} />
         <Route path="/admin/trainings" component={ManageTrainings} />
         <Route path="/admin/places" component={ManagePlaces} />
