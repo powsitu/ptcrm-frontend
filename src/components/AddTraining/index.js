@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -21,6 +21,14 @@ import {
   ADD_TRAINING,
   TRAININGS_ON_DAY,
 } from "../../store/trainings/gql_trainings";
+import {
+  setMessage,
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+} from "../../store/appState/actions";
+import { useDispatch } from "react-redux";
+import Loading from "../Loading";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -44,21 +52,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AddTraining(props) {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [isBookable, set_isBookable] = useState(true);
   const [placeId, set_placeId] = useState("");
   const [trainingTypeId, set_trainingTypeId] = useState("");
-  const [date, set_date] = useState(props.date);
   const [time, set_time] = useState("");
   const [attendees, set_attendees] = useState(0);
   const [addTraining] = useMutation(ADD_TRAINING);
 
-  useEffect(() => {
-    set_date(props.date);
-  }, [props.date]);
+  const { data: places, loading: loadingPlaces, error: errorPlaces } = useQuery(
+    GET_PLACES
+  );
+  const {
+    data: trainingTypes,
+    loading: loadingTypes,
+    error: errorTTypes,
+  } = useQuery(GET_TYPES);
 
-  const { data: places } = useQuery(GET_PLACES);
-  const { data: trainingTypes } = useQuery(GET_TYPES);
+  if (loadingPlaces) {
+    return <Loading />;
+  }
+  if (errorPlaces) {
+    dispatch(setMessage("danger", true, errorPlaces.message));
+    return <Loading />;
+  }
+
+  if (loadingTypes) {
+    return <Loading />;
+  }
+  if (errorTTypes) {
+    dispatch(setMessage("danger", true, errorTTypes.message));
+    return <Loading />;
+  }
 
   const handleCheckboxChange = (event) => {
     set_isBookable(event.target.checked);
@@ -82,22 +108,32 @@ export default function AddTraining(props) {
 
   async function clickSubmit(event) {
     event.preventDefault();
-    const response = await addTraining({
-      variables: {
-        date: date,
-        time: time,
-        attendees: parseInt(attendees),
-        isBookable: isBookable,
-        placeId: parseInt(placeId),
-        trainingTypeId: parseInt(trainingTypeId),
-      },
-      refetchQueries: [
-        {
-          query: TRAININGS_ON_DAY,
-          variables: { date: moment(date).format("YYYY-MM-DD") },
+    dispatch(appLoading());
+    try {
+      const response = await addTraining({
+        variables: {
+          date: props.date,
+          time: time,
+          attendees: parseInt(attendees),
+          isBookable: isBookable,
+          placeId: parseInt(placeId),
+          trainingTypeId: parseInt(trainingTypeId),
         },
-      ],
-    });
+        refetchQueries: [
+          {
+            query: TRAININGS_ON_DAY,
+            variables: { date: moment(props.date).format("YYYY-MM-DD") },
+          },
+        ],
+      });
+      dispatch(
+        showMessageWithTimeout("success", false, "Training added!", 1500)
+      );
+      dispatch(appDoneLoading());
+    } catch (error) {
+      dispatch(setMessage("danger", true, error.message));
+      dispatch(appDoneLoading());
+    }
     set_time("");
     set_attendees(0);
     set_placeId("");

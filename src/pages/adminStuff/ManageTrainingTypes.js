@@ -1,27 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_TYPES } from "../../store/trainingTypes/gql_trainingTypes";
 import TrainingTypesTable from "../../components/Tables/managetrainingtypes";
 import AddTrainingType from "../../components/AddTrainingType";
+import { useDispatch } from "react-redux";
+import Loading from "../../components/Loading";
+import { setMessage } from "../../store/appState/actions";
 
 export default function ManagePlaces() {
-  const [trainingTypes, set_trainingTypes] = useState();
+  const dispatch = useDispatch();
 
-  const { data } = useQuery(GET_TYPES, {
+  const { data, loading, error } = useQuery(GET_TYPES, {
     fetchPolicy: "network-only",
   });
-
-  useEffect(() => {
-    if (data) {
-      set_trainingTypes(data.getAllTrainingTypes);
-    }
-  }, [data]);
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    dispatch(setMessage("danger", true, error.message));
+    return <Loading />;
+  }
 
   return (
     <div className="container">
       <div>
-        {trainingTypes !== undefined && trainingTypes.length !== 0 ? (
-          <TrainingTypesTable data={trainingTypes} />
+        {data.getAllTrainingTypes !== undefined &&
+        data.getAllTrainingTypes.length !== 0 ? (
+          <TrainingTypesTable data={data.getAllTrainingTypes} />
         ) : null}
       </div>
       <div>

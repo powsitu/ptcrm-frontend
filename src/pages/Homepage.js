@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
@@ -10,32 +10,46 @@ import {
 } from "../store/trainings/gql_trainings";
 import TrainingTable from "../components/Tables/trainings";
 import { selectUserId } from "../store/user/selectors";
+import Loading from "../components/Loading";
+import {
+  setMessage,
+  appLoading,
+  appDoneLoading,
+} from "../store/appState/actions";
 
 export default function Homepage() {
+  const dispatch = useDispatch();
   const [date, set_date] = useState(new Date());
-  const [trainings, set_trainings] = useState([]);
   const currentUser = useSelector(selectUserId);
   const [joinTraining] = useMutation(JOIN_TRAINING);
   const onDateChange = (date) => {
     set_date(date);
   };
 
-  const { data } = useQuery(TRAININGS_ON_DAY, {
+  const { data, loading, error } = useQuery(TRAININGS_ON_DAY, {
     variables: { date: moment(date).format("YYYY-MM-DD") },
     fetchPolicy: "network-only",
   });
-
-  async function clickJoinTraining(userId, trainingId) {
-    const response = await joinTraining({
-      variables: { userId: userId, trainingId: parseInt(trainingId) },
-    });
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    dispatch(setMessage("danger", true, error.message));
+    return <Loading />;
   }
 
-  useEffect(() => {
-    if (data) {
-      set_trainings(data);
+  async function clickJoinTraining(userId, trainingId) {
+    dispatch(appLoading());
+    try {
+      const response = await joinTraining({
+        variables: { userId: userId, trainingId: parseInt(trainingId) },
+      });
+      dispatch(appDoneLoading());
+    } catch (error) {
+      dispatch(setMessage("danger", true, error.message));
+      dispatch(appDoneLoading());
     }
-  }, [data]);
+  }
 
   return (
     <div className="container">
@@ -53,8 +67,8 @@ export default function Homepage() {
             </tr>
           </thead>
           <tbody>
-            {trainings.length !== 0 ? (
-              trainings.getTrainingThisDay.map((training) => {
+            {data.length !== 0 ? (
+              data.getTrainingThisDay.map((training) => {
                 return (
                   <TrainingTable
                     key={training.id}

@@ -1,33 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { ALL_USERS, SWITCH_USER_BLOCK } from "../../store/user/gql_user";
 import UsersTable from "../../components/Tables/users";
+import { useDispatch } from "react-redux";
+import Loading from "../../components/Loading";
+import {
+  setMessage,
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+} from "../../store/appState/actions";
 
 export default function UserManagement() {
-  const [users, set_users] = useState();
+  const dispatch = useDispatch();
   const [switchUserBlock] = useMutation(SWITCH_USER_BLOCK);
 
-  const { data } = useQuery(ALL_USERS, {
+  const { data, loading, error } = useQuery(ALL_USERS, {
     fetchPolicy: "network-only",
   });
-
-  async function clickSwitchStatus(userId) {
-    const response = await switchUserBlock({
-      variables: { userId: userId },
-      refetchQueries: [
-        {
-          query: ALL_USERS,
-          fetchPolicy: "network-only",
-        },
-      ],
-    });
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    dispatch(setMessage("danger", true, error.message));
+    return <Loading />;
   }
 
-  useEffect(() => {
-    if (data) {
-      set_users(data);
+  async function clickSwitchStatus(userId) {
+    dispatch(appLoading());
+    try {
+      const response = await switchUserBlock({
+        variables: { userId: userId },
+        refetchQueries: [
+          {
+            query: ALL_USERS,
+            fetchPolicy: "network-only",
+          },
+        ],
+      });
+      dispatch(
+        showMessageWithTimeout("success", false, "Status switched!", 1500)
+      );
+      dispatch(appDoneLoading());
+    } catch (error) {
+      dispatch(setMessage("danger", true, error.message));
+      dispatch(appDoneLoading());
     }
-  }, [data]);
+  }
 
   return (
     <div className="container">
@@ -42,8 +61,8 @@ export default function UserManagement() {
           </tr>
         </thead>
         <tbody>
-          {users ? (
-            users.getAllUsers.map((user) => {
+          {data ? (
+            data.getAllUsers.map((user) => {
               return (
                 <UsersTable
                   key={user.id}

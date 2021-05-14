@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { selectUserId } from "../../store/user/selectors";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import {
@@ -7,34 +7,52 @@ import {
   CANCEL_RESERVATION,
 } from "../../store/reservations/gql_reservations";
 import ReservationsTable from "../../components/Tables/reservations";
+import Loading from "../../components/Loading";
+import {
+  setMessage,
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+} from "../../store/appState/actions";
 
 export default function Reservations() {
+  const dispatch = useDispatch();
   const currentUser = useSelector(selectUserId);
-  const [reservations, set_reservations] = useState();
   const [cancelReservation] = useMutation(CANCEL_RESERVATION);
 
   async function clickCancelReservation(reservationId) {
-    const response = await cancelReservation({
-      variables: { reservationId: parseInt(reservationId) },
-      refetchQueries: [
-        {
-          query: MY_RESERVATIONS,
-          variables: { userId: currentUser },
-        },
-      ],
-    });
+    dispatch(appLoading());
+    try {
+      const response = await cancelReservation({
+        variables: { reservationId: parseInt(reservationId) },
+        refetchQueries: [
+          {
+            query: MY_RESERVATIONS,
+            variables: { userId: currentUser },
+          },
+        ],
+      });
+      dispatch(
+        showMessageWithTimeout("success", false, "Reservation cancelled", 1500)
+      );
+      dispatch(appDoneLoading());
+    } catch (error) {
+      dispatch(setMessage("danger", true, error.message));
+      dispatch(appDoneLoading());
+    }
   }
 
-  const { data } = useQuery(MY_RESERVATIONS, {
+  const { data, loading, error } = useQuery(MY_RESERVATIONS, {
     variables: { userId: currentUser },
     fetchPolicy: "network-only",
   });
-
-  useEffect(() => {
-    if (data) {
-      set_reservations(data);
-    }
-  }, [data]);
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    dispatch(setMessage("danger", true, error.message));
+    return <Loading />;
+  }
 
   return (
     <div className="container">
@@ -49,8 +67,8 @@ export default function Reservations() {
           </tr>
         </thead>
         <tbody>
-          {reservations ? (
-            reservations.getAllReservationsForUser.map((reservation) => {
+          {data ? (
+            data.getAllReservationsForUser.map((reservation) => {
               return (
                 <ReservationsTable
                   key={reservation.id}
